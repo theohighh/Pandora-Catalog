@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandora Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+        
+        body { 
+            background-color: #020617; /* Slate-950 base */
+            color: #e2e8f0; 
+            font-family: 'Rajdhani', sans-serif; 
+            overflow-x: hidden; 
+        }
+
+        /* Latar Belakang Gradasi & Partikel Abstrak */
+        .bg-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(37, 99, 235, 0.12) 0%, transparent 50%);
+        }
+        
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -2;
+            opacity: 0.5;
+        }
+
+        /* Tipografi Futuristik */
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        
+        /* Efek Kaca (Glassmorphism) & Neon Glow */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 242, 255, 0.8);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.3), inset 0 0 10px rgba(0, 242, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00f2ff, 0 0 40px #00f2ff;
+        }
+
+        .btn-cyan {
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.1), rgba(37, 99, 235, 0.2));
+            border: 1px solid #00f2ff;
+            color: #00f2ff;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-cyan:hover {
+            background: #00f2ff;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+        }
+
+        /* Animasi Marquee (Logo Berjalan) */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 20s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Hilangkan panah input number */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#00f2ff] selection:text-black">
+
+    <!-- Efek Latar Belakang Tetap -->
+    <div class="bg-particles"></div>
+    <div class="blob w-[500px] h-[500px] bg-cyan-600 rounded-full top-[-10%] left-[-10%]"></div>
+    <div class="blob w-[400px] h-[400px] bg-blue-700 rounded-full bottom-[-10%] right-[-5%]"></div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: INTERFACE SAMBUTAN (LANDING PAGE)  -->
+    <!-- ========================================== -->
+    <div id="landing-view" class="min-h-screen flex flex-col relative z-10 transition-opacity duration-700 opacity-100">
+        
+        <!-- Navigasi Sambutan -->
+        <nav class="w-full px-6 md:px-12 py-6 flex justify-between items-center">
+            <div class="flex items-center gap-10">
+                <h1 class="text-2xl font-orbitron font-bold tracking-widest uppercase flex items-center gap-2">
+                    <svg class="w-6 h-6 text-[#00f2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    PANDORA <span class="text-gray-400">TECH</span>
+                </h1>
+                <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                    <a href="#" class="text-white hover:text-[#00f2ff] transition-colors">Home</a>
+                    <a href="#" class="hover:text-white transition-colors">About</a>
+                    <a href="#" class="hover:text-white transition-colors">Why Pandora?</a>
+                    <a href="#" class="hover:text-white transition-colors">Sectors <span class="text-xs">▼</span></a>
+                </div>
+            </div>
+            <!-- Tombol Navigasi Kanan -->
+            <button onclick="masukAplikasi()" class="btn-cyan px-6 py-2.5 rounded-full font-orbitron text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Start Now
+            </button>
+        </nav>
+
+        <!-- Bagian Hero / Tengah -->
+        <div class="flex-grow flex flex-col items-center justify-center text-center px-4 mt-8">
+            <!-- Badge Klien -->
+            <div class="glass-card rounded-full pl-2 pr-4 py-1.5 mb-8 flex items-center gap-3 text-xs font-semibold tracking-widest text-[#00f2ff] border-[#00f2ff]/30 shadow-[0_0_15px_rgba(0,242,255,0.1)]">
+                <span class="bg-[#00f2ff] text-black rounded-full w-6 h-6 flex items-center justify-center text-sm">💬</span>
+                200+ HAPPY CLIENTS 
+                <span class="ml-2 text-gray-400 flex items-center gap-1 hover:text-white cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> EXPLORE</span>
+            </div>
+
+            <!-- Judul Utama -->
+            <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight max-w-4xl leading-tight text-white font-orbitron">
+                Building Systems That <br> Help You <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ff] to-[#a855f7] neon-text">Scale and Lead</span>
+            </h2>
+            
+            <p class="text-gray-400 text-lg md:text-xl mb-10 max-w-2xl">
+                Connecting you with world-class automation to scale, innovate, and lead in the digital era.
+            </p>
+
+            <!-- Tombol Aksi -->
+            <div class="flex gap-4">
+                <button onclick="masukAplikasi()" class="bg-white text-black px-8 py-3.5 rounded-full font-bold hover:bg-gray-200 transition-colors flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Start now
+                </button>
+                <a href="mailto:theomadrazo24@gmail.com" class="glass-card text-white px-8 py-3.5 rounded-full font-bold hover:border-[#00f2ff] transition-colors flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Book a call
+                </a>
+            </div>
+        </div>
+
+        <!-- Marquee Ikon Menyala (Menggantikan Ponsel) -->
+        <div class="relative w-full overflow-hidden py-24 mt-4">
+            <!-- Garis Cahaya Laser di Tengah -->
+            <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-[#00f2ff] shadow-[0_0_30px_10px_rgba(0,242,255,0.4)] transform -translate-y-1/2 z-0"></div>
+            
+            <!-- Kontainer Animasi Berjalan -->
+            <div class="animate-marquee relative z-10 flex gap-12 px-6">
+                <!-- SET 1 -->
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-[#00f2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-[#00f2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-[#00f2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                </div>
+
+                <!-- SET 2 (DUPLIKAT UNTUK LOOPING) -->
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-[#00f2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-[#00f2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-[#00f2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                </div>
+                <div class="w-16 h-16 shrink-0 rounded-full glass-card flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] bg-[#020617]/80 backdrop-blur-xl border-[#00f2ff]/60">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: MENU UTAMA (KATALOG & DASHBOARD)   -->
+    <!-- ========================================== -->
+    <div id="app-view" class="hidden relative z-10 transition-opacity duration-700 opacity-0">
+        
+        <nav class="fixed w-full z-40 bg-[#020617]/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+            <button onclick="toggleSidebar()" class="text-white hover:text-[#00f2ff] transition-colors focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            
+            <h1 class="text-2xl font-orbitron font-bold tracking-widest uppercase">PANDORA <span class="text-[#00f2ff]">TECH</span></h1>
+            
+            <a href="mailto:theomadrazo24@gmail.com" class="hidden md:block text-sm font-semibold tracking-wider text-gray-300 hover:text-[#00f2ff] uppercase transition-colors">
+                Customer Service
+            </a>
+            <a href="mailto:theomadrazo24@gmail.com" class="md:hidden text-[#00f2ff]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </a>
+        </nav>
+
+        <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-[#050b14] z-50 transform -translate-x-full transition-transform duration-500 border-r border-[#00f2ff]/30 shadow-[5px_0_30px_rgba(0,242,255,0.1)] flex flex-col">
+            <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                <h2 class="font-orbitron text-xl font-bold text-[#00f2ff]">MENU</h2>
+                <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="p-6 flex-grow overflow-y-auto">
+                <div class="mb-10">
+                    <h3 class="text-xs uppercase tracking-[0.2em] text-[#00f2ff] mb-4 font-bold border-l-2 border-[#00f2ff] pl-2">User Portal</h3>
+                    <ul class="space-y-3 text-sm font-medium text-gray-300">
+                        <li><a href="#" class="flex items-center gap-3 hover:text-white hover:translate-x-2 transition-transform"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> Home</a></li>
+                        <li><a href="#katalog" onclick="toggleSidebar()" class="flex items-center gap-3 hover:text-white hover:translate-x-2 transition-transform"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg> Katalog Layanan</a></li>
+                        <li><a href="mailto:theomadrazo24@gmail.com" class="flex items-center gap-3 hover:text-white hover:translate-x-2 transition-transform"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> Bantuan & Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Bagian Admin Dihapus, Digantikan Logout -->
+                <div class="mt-8 pt-8 border-t border-white/10">
+                    <button onclick="kembaliKeSambutan()" class="flex items-center gap-3 text-red-400 hover:text-red-300 hover:translate-x-2 transition-transform text-sm font-bold uppercase tracking-wider">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg> 
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <header class="pt-32 pb-20 px-6 text-center max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-orbitron font-black mb-6 uppercase tracking-wider leading-tight">
+                Explore <br> The Next-Gen <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ff] to-blue-500">Automation</span>
+            </h2>
+            <p class="text-gray-400 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10">Premium automated bot systems and custom scripts tailored for your professional management.</p>
+        </header>
+
+        <main id="katalog" class="max-w-7xl mx-auto px-6 pb-16">
+            <div class="flex justify-between items-end mb-8">
+                <h3 class="text-2xl font-orbitron font-bold">Top Products <span class="text-[#00f2ff] text-3xl">.</span></h3>
+            </div>
+
+            <!-- Grid Produk -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                
+                <div class="glass-card rounded-2xl p-4 flex flex-col relative overflow-hidden group">
+                    <div class="w-full h-40 bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl mb-4 flex items-center justify-center border border-white/5 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=400&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-110 transition-transform duration-700">
+                        <svg class="w-10 h-10 text-white/50 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg text-white mb-1">Rental Bot</h4>
+                    <p class="text-xs text-gray-400 mb-4 flex-grow">Akses penuh sistem bot 24/7.</p>
+                    <button onclick="bukaFormulir('Rental Bot')" class="btn-cyan w-full py-2.5 rounded-lg font-orbitron text-sm tracking-wider uppercase font-bold">Select</button>
+                </div>
+
+                <div class="glass-card rounded-2xl p-4 flex flex-col relative overflow-hidden group">
+                    <div class="w-full h-40 bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl mb-4 flex items-center justify-center border border-white/5 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=400&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h4 class="font-bold text-lg text-white mb-1">Script Bot WA</h4>
+                    <p class="text-xs text-gray-400 mb-4 flex-grow">Source code bot siap pakai.</p>
+                    <button onclick="bukaFormulir('Script Bot WhatsApp')" class="btn-cyan w-full py-2.5 rounded-lg font-orbitron text-sm tracking-wider uppercase font-bold">Select</button>
+                </div>
+
+                <div class="glass-card rounded-2xl p-4 flex flex-col relative overflow-hidden group">
+                    <div class="w-full h-40 bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl mb-4 flex items-center justify-center border border-white/5 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=400&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h4 class="font-bold text-lg text-white mb-1">Rename Script</h4>
+                    <p class="text-xs text-gray-400 mb-4 flex-grow">Ubah identitas dan branding script.</p>
+                    <button onclick="bukaFormulir('Rename Script Bot')" class="btn-cyan w-full py-2.5 rounded-lg font-orbitron text-sm tracking-wider uppercase font-bold">Select</button>
+                </div>
+
+                <div class="glass-card rounded-2xl p-4 flex flex-col relative overflow-hidden group">
+                    <div class="w-full h-40 bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl mb-4 flex items-center justify-center border border-white/5 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1623282033815-40b05d96c903?auto=format&fit=crop&w=400&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h4 class="font-bold text-lg text-white mb-1">Custom Fitur</h4>
+                    <p class="text-xs text-gray-400 mb-4 flex-grow">Update atau buat fitur bot baru.</p>
+                    <button onclick="bukaFormulir('Update/Create New Feature')" class="btn-cyan w-full py-2.5 rounded-lg font-orbitron text-sm tracking-wider uppercase font-bold">Select</button>
+                </div>
+
+                <div class="glass-card rounded-2xl p-4 flex flex-col relative overflow-hidden group">
+                    <div class="w-full h-40 bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl mb-4 flex items-center justify-center border border-white/5 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=400&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h4 class="font-bold text-lg text-white mb-1">Fix Fitur Error</h4>
+                    <p class="text-xs text-gray-400 mb-4 flex-grow">Perbaikan bug pada kode sistem.</p>
+                    <button onclick="bukaFormulir('Fix Fitur Error')" class="btn-cyan w-full py-2.5 rounded-lg font-orbitron text-sm tracking-wider uppercase font-bold">Select</button>
+                </div>
+
+                <!-- Produk Tambahan: Rekber & MC -->
+                <div class="glass-card rounded-2xl p-4 flex flex-col relative overflow-hidden group">
+                    <div class="w-full h-40 bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl mb-4 flex items-center justify-center border border-white/5 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h4 class="font-bold text-lg text-white mb-1">Rekber & MC</h4>
+                    <p class="text-xs text-gray-400 mb-4 flex-grow">Layanan Rekening Bersama & Middleman terpercaya.</p>
+                    <button onclick="bukaFormulir('Rekber & MC')" class="btn-cyan w-full py-2.5 rounded-lg font-orbitron text-sm tracking-wider uppercase font-bold">Select</button>
+                </div>
+
+            </div>
+        </main>
+
+        <section class="max-w-7xl mx-auto px-6 pb-24">
+            <div class="relative bg-gradient-to-r from-[#0f172a] to-[#020617] border border-[#00f2ff]/30 rounded-2xl p-8 md:p-12 overflow-hidden shadow-[0_0_30px_rgba(0,242,255,0.1)] flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="absolute right-0 top-0 w-64 h-64 bg-[#00f2ff]/10 rounded-full blur-3xl"></div>
+                <div class="relative z-10">
+                    <h3 class="text-2xl md:text-3xl font-orbitron font-bold text-white mb-2">Pandora Official <span class="text-[#00f2ff]">Community</span></h3>
+                    <p class="text-gray-400 max-w-xl">Bergabunglah dengan grup resmi WhatsApp kami untuk mendapatkan pembaruan terbaru, diskusi bot, dan interaksi langsung dengan admin.</p>
+                </div>
+                <a href="https://chat.whatsapp.com/LHc6TSkyzu1BLNh7xJPZJv" target="_blank" class="relative z-10 shrink-0 bg-[#25D366]/10 border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white font-orbitron font-bold px-8 py-4 rounded-xl flex items-center gap-3 transition-all shadow-[0_0_15px_rgba(37,211,102,0.3)]">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    Join WhatsApp Group
+                </a>
+            </div>
+        </section>
+
+        <footer class="border-t border-[#00f2ff]/20 bg-[#020617]/90 py-12">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <h4 class="font-orbitron font-bold text-xl mb-1">PANDORA <span class="text-[#00f2ff]">TECH</span></h4>
+                    <p class="text-sm text-gray-500">© 2026. Premium Automation Services.</p>
+                </div>
+                
+                <div class="flex gap-4">
+                    <a href="https://tiktok.com/@theoparkerrr" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:bg-[#00f2ff] hover:text-black text-gray-400 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    </a>
+                    <a href="https://instagram.com/theohighh" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:bg-[#00f2ff] hover:text-black text-gray-400 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://wa.me/6282320719881" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:bg-[#00f2ff] hover:text-black text-gray-400 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Modal Pemesanan -->
+        <div id="modalOrder" class="fixed inset-0 bg-[#020617]/90 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+            <div class="glass-card w-full max-w-md p-8 rounded-2xl relative border-[#00f2ff]/50 shadow-[0_0_40px_rgba(0,242,255,0.15)] transform scale-95 transition-transform duration-300" id="modalContent">
+                
+                <h3 class="text-2xl font-orbitron font-bold text-white mb-2">Checkout <span class="text-[#00f2ff]">Portal</span></h3>
+                <p class="text-gray-400 text-sm mb-6 border-b border-white/10 pb-4">Lengkapi data untuk proses automasi.</p>
+
+                <form id="formCheckout" onsubmit="konfirmasiOrder(event)">
+                    <div class="mb-5">
+                        <label class="block text-xs uppercase tracking-[0.1em] text-[#00f2ff] mb-2 font-semibold">Selected Item</label>
+                        <input type="text" id="inputLayanan" readonly class="w-full bg-[#0a0f1c] border border-white/10 rounded-lg py-3 px-4 text-sm text-gray-300 outline-none cursor-not-allowed">
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="block text-xs uppercase tracking-[0.1em] text-[#00f2ff] mb-2 font-semibold">WhatsApp Number <span class="text-red-500">*</span></label>
+                        <input type="number" id="inputWA" required placeholder="Ex: 08123456789" class="w-full bg-[#0a0f1c] border border-white/10 rounded-lg py-3 px-4 text-sm text-white outline-none focus:border-[#00f2ff] transition-colors shadow-inner">
+                    </div>
+
+                    <div class="mb-8">
+                        <label class="block text-xs uppercase tracking-[0.1em] text-gray-500 mb-2 font-semibold">Email Address <span class="normal-case tracking-normal">(Optional)</span></label>
+                        <input type="email" id="inputEmail" placeholder="user@email.com" class="w-full bg-[#0a0f1c] border border-white/10 rounded-lg py-3 px-4 text-sm text-white outline-none focus:border-white transition-colors shadow-inner">
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button type="button" onclick="tutupFormulir()" class="w-1/3 py-3 rounded-lg border border-white/20 text-gray-300 font-orbitron text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="w-2/3 btn-cyan rounded-lg py-3 font-orbitron text-sm font-bold uppercase tracking-wider">
+                            Order Now
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Logika UI -->
+    <script>
+        // Data Owner
+        const ownerWhatsApp = "6282320719881"; 
+
+        // Fungsi Transisi (Pindah dari Landing ke Aplikasi Utama)
+        function masukAplikasi() {
+            const landingView = document.getElementById('landing-view');
+            const appView = document.getElementById('app-view');
+            
+            landingView.classList.replace('opacity-100', 'opacity-0');
+            
+            setTimeout(() => {
+                landingView.classList.add('hidden');
+                appView.classList.remove('hidden');
+                
+                // Memicu reflow agar transisi opacity bekerja
+                void appView.offsetWidth; 
+                appView.classList.replace('opacity-0', 'opacity-100');
+            }, 700); // 700ms sama dengan durasi di CSS
+        }
+
+        // Fungsi Transisi (Logout / Kembali ke Sambutan)
+        function kembaliKeSambutan() {
+            const landingView = document.getElementById('landing-view');
+            const appView = document.getElementById('app-view');
+            
+            // Tutup sidebar jika sedang terbuka sebelum logout
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            
+            appView.classList.replace('opacity-100', 'opacity-0');
+            
+            setTimeout(() => {
+                appView.classList.add('hidden');
+                landingView.classList.remove('hidden');
+                
+                void landingView.offsetWidth; 
+                landingView.classList.replace('opacity-0', 'opacity-100');
+            }, 700);
+        }
+
+        // Fungsi Sidebar Menu Utama
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        }
+
+        // Fungsi Modal Pemesanan
+        const modal = document.getElementById('modalOrder');
+        const modalContent = document.getElementById('modalContent');
+        const inputLayanan = document.getElementById('inputLayanan');
+        const formCheckout = document.getElementById('formCheckout');
+
+        function bukaFormulir(namaLayanan) {
+            inputLayanan.value = namaLayanan;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function tutupFormulir() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                formCheckout.reset(); 
+            }, 300);
+        }
+
+        function konfirmasiOrder(event) {
+            event.preventDefault();
+            
+            const layanan = inputLayanan.value;
+            const wa = document.getElementById('inputWA').value;
+            const email = document.getElementById('inputEmail').value || 'Tidak dicantumkan';
+
+            const textTemplate = `[ PANDORA TECH SYSTEM ]\n\nHalo Admin, saya ingin melakukan pemesanan layanan:\n\n` +
+                                 `▪️ *Layanan:* ${layanan}\n` +
+                                 `▪️ *Kontak WA:* ${wa}\n` +
+                                 `▪️ *Email:* ${email}\n\n` +
+                                 `Mohon informasi lebih lanjut terkait pembayaran dan pengerjaan.`;
+            
+            const waLink = `https://wa.me/${ownerWhatsApp}?text=${encodeURIComponent(textTemplate)}`;
+            
+            window.open(waLink, '_blank');
+            tutupFormulir();
+        }
+    </script>
+</body>
+</html>
